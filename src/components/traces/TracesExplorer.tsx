@@ -90,7 +90,7 @@ export default function TracesExplorer({ data }: TracesExplorerProps) {
                     {activeDest && (
                         <motion.div
                             key={`bg-map-${activeDest.id}`}
-                            initial={{ opacity: 0 }}
+                            initial={false}
                             animate={{ opacity: 1, transition: { duration: 0.4, ease: "easeOut" } }}
                             exit={{ opacity: 0, transition: { duration: 0.2 } }}
                             className="absolute inset-0"
@@ -194,7 +194,7 @@ export default function TracesExplorer({ data }: TracesExplorerProps) {
                         {activeDest && (
                             <motion.div
                                 key={activeDest.id}
-                                initial={{ opacity: 0 }}
+                                initial={false}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.18, ease: "easeOut" }}
@@ -234,7 +234,7 @@ export default function TracesExplorer({ data }: TracesExplorerProps) {
                                                 key={`photo-${idx}`}
                                                 className="w-full h-[160px] md:h-[200px] lg:h-[155px] rounded-xl overflow-hidden cursor-pointer group relative"
                                                 onClick={() => setLightboxPhoto(photo)}
-                                                style={idx === 0 ? { viewTransitionName: `trace-img-container-${activeDest.id}` } : undefined}
+                                                style={idx === 0 ? { viewTransitionName: `trace-img-container-${activeDest.id.replace(/[^a-zA-Z0-9_-]/g, "-")}` } : undefined}
                                             >
                                                 <img
                                                     src={photo}
