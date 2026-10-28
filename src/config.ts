@@ -11,12 +11,20 @@ export const SITE_CONFIG = {
     imageServer: ["https://images.pexels.com", "https://images.unsplash.com"],
     postsPerPage: 6,
     projectsPerPage: 12,
+    verification: {
+        google: (typeof process !== 'undefined' && process.env?.GOOGLE_SITE_VERIFICATION) || "",
+        bing: (typeof process !== 'undefined' && process.env?.BING_SITE_VERIFICATION) || "",
+        baidu: (typeof process !== 'undefined' && process.env?.BAIDU_SITE_VERIFICATION) || "",
+        shenma: (typeof process !== 'undefined' && process.env?.SHENMA_SITE_VERIFICATION) || ""
+    },
     defaultImage: "/blog-placeholder-1.png",
     nav: [
-        { text: "机场库", href: "/brands" },
-        { text: "客户端", href: "/clients" },
+        { text: "机场推荐", href: "/jichang" },
+        { text: "VPN专栏", href: "/vpn" },
+        { text: "Clash教程", href: "/clash" },
+        { text: "品牌库", href: "/brands" },
         { text: "网络图志", href: "/traces" },
-        { text: "技术指南", href: "/blog" },
+        { text: "使用教程", href: "/tutorial" },
     ],
     homepage: {
         harmonicSystem: {
@@ -31,8 +39,12 @@ export const SITE_CONFIG = {
     },
     footer: {
         social: [
-            { text: "机场品牌库", href: "/brands" },
-            { text: "客户端大全", href: "/clients" },
+            { text: "机场推荐", href: "/jichang" },
+            { text: "VPN专栏", href: "/vpn" },
+            { text: "Clash教程", href: "/clash" },
+            { text: "使用教程", href: "/tutorial" },
+            { text: "品牌库", href: "/brands" },
+            { text: "客户端", href: "/clients" },
             { text: "网络图志", href: "/traces" },
             { text: "关于与声明", href: "/about" }
         ],

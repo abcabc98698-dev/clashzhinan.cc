@@ -1,0 +1,144 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SITE_CONFIG } from "@/config";
+import {
+    RiShieldFlashLine,
+    RiArrowRightUpLine,
+    RiAlertLine,
+    RiCheckDoubleLine,
+    RiCustomerService2Line,
+    RiTimeLine
+} from "@remixicon/react";
+
+const title = `2026 稳定梯子推荐与科学上网避坑指南：小白新手快速上手与防失联 // ${SITE_CONFIG.title}`;
+const description = "面向新手的科学上网梯子选型与避坑手册。详细拆解免费翻墙陷阱、跑路特征识别、晚高峰抗断流保障机制，提供多平台一键导入与备用容灾方案。";
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+const pageUrl = `${siteBase}/tizi`;
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": siteBase },
+        { "@type": "ListItem", "position": 2, "name": "梯子推荐专栏", "item": pageUrl }
+    ]
+};
+
+const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "2026 稳定梯子推荐与科学上网新手避坑专栏",
+    "description": description,
+    "url": pageUrl
+};
+---
+
+<Layout title={title} description={description}>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
+
+    <div class="max-w-5xl mx-auto w-full pt-2 sm:pt-4 md:pt-6 pb-20">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center gap-2 text-xs font-mono text-secondary-text mb-6">
+            <a href="/" class="hover:text-primary-text dark:hover:text-white transition-colors">首页</a>
+            <span>/</span>
+            <span class="text-primary-text dark:text-white font-medium">梯子推荐专栏</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-10 sm:mb-12 text-left">
+            <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-secondary-text">
+                    Beginner Field Guide // Anti-Scam 2026
+                </span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl font-normal leading-tight tracking-tight text-primary-text dark:text-white mb-4">
+                梯子推荐与科学上网避坑手册.
+            </h1>
+
+            <p class="text-sm sm:text-base text-secondary-text dark:text-gray-300 max-w-3xl font-light leading-relaxed">
+                许多用户初次接触“科学上网梯子”时，常因被营销噱头误导而踩坑：或购买了三年超长套餐随后遭遇商家跑路失联，或使用了存在恶意嗅探的免费插件导致账号被盗。本手册为您提炼真正可靠的选购避坑准则。
+            </p>
+        </header>
+
+        <!-- 3 Core Anti-Scam Rules -->
+        <section class="mb-14">
+            <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white mb-4 flex items-center gap-2">
+                <RiAlertLine className="w-5 h-5 text-amber-500" />
+                科学上网梯子选购“三不碰”铁律
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-5 rounded-xl border border-red-500/20 bg-red-500/5">
+                    <div class="font-mono text-xs text-red-500 font-semibold mb-2">RULE 01</div>
+                    <h3 class="text-base font-medium text-primary-text dark:text-white mb-2">严禁购买两年/三年超长包</h3>
+                    <p class="text-xs text-secondary-text leading-relaxed">
+                        科学上网行业受网络管制与上游带宽政策波动影响极大。小作坊梯子常通过“99元包三年”迅速吸金后跑路。务必以<strong>月付</strong>或<strong>低门槛年付</strong>为主。
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-xl border border-amber-500/20 bg-amber-500/5">
+                    <div class="font-mono text-xs text-amber-500 font-semibold mb-2">RULE 02</div>
+                    <h3 class="text-base font-medium text-primary-text dark:text-white mb-2">不碰不明来源“破解版/免费版”</h3>
+                    <p class="text-xs text-secondary-text leading-relaxed">
+                        网上泛滥的“破解版 VPN”90% 均被二次植入了中间人抓包脚本或挖矿程序，您的 Google/Twitter 密码及信用卡信息在明文传输中极易泄露。
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-xl border border-blue-500/20 bg-blue-500/5">
+                    <div class="font-mono text-xs text-blue-500 font-semibold mb-2">RULE 03</div>
+                    <h3 class="text-base font-medium text-primary-text dark:text-white mb-2">不碰无 Telegram / 工单支持的孤儿站</h3>
+                    <p class="text-xs text-secondary-text leading-relaxed">
+                        优质服务商必定具备活跃的官方公告频道与及时的工单协助。一旦遇到特殊时期域名被屏蔽，频道是获取最新订阅镜像域名的唯一渠道。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disaster Recovery: Dual-Holding Strategy -->
+        <section class="mb-14 p-6 rounded-2xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-zinc-900/40">
+            <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white mb-3 flex items-center gap-2">
+                <RiCheckDoubleLine className="w-5 h-5 text-emerald-500" />
+                终极防失联方案：“主力专线 + 永不过期备用包”容灾双持
+            </h2>
+            <p class="text-xs sm:text-sm text-secondary-text leading-relaxed mb-4">
+                老手玩家从不会把鸡蛋放在同一个篮子里。我们推荐的黄金组合策略是：
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]">
+                    <div class="font-mono text-xs text-blue-500 font-medium mb-1">主线主力服务</div>
+                    <div class="text-sm font-medium mb-1">月付/年付 IEPL 专线</div>
+                    <div class="text-xs text-secondary-text">用于日常高频刷 YouTube 4K、下载大文件及公司远程协同，带宽充裕。</div>
+                </div>
+                <div class="p-4 rounded-xl border border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]">
+                    <div class="font-mono text-xs text-emerald-500 font-medium mb-1">容灾备用方案</div>
+                    <div class="text-sm font-medium mb-1">按量付费 · 永不过期流量包</div>
+                    <div class="text-xs text-secondary-text">如光速云 147 永久套餐，不限时间，平时不消耗流量，关键时刻用于更新主订阅。</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Topic Clusters Internal Links -->
+        <section class="border-t border-black/10 dark:border-white/10 pt-10">
+            <h3 class="text-base font-mono uppercase tracking-widest text-secondary-text mb-6">
+                // 深度关联技术长文 (Topic Clusters)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a href="/jichang" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">机场推荐</div>
+                    <div class="text-sm font-medium group-hover:text-amber-500 transition-colors">2026 高速稳定专线机场选购与避坑指南</div>
+                </a>
+                <a href="/free" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">安全警示</div>
+                    <div class="text-sm font-medium group-hover:text-amber-500 transition-colors">免费梯子与公益节点窃密风险深度剖析</div>
+                </a>
+                <a href="/tutorial" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">教程实战</div>
+                    <div class="text-sm font-medium group-hover:text-amber-500 transition-colors">小白 3 步快速配置 Clash 与手机客户端</div>
+                </a>
+            </div>
+        </section>
+    </div>
+</Layout>

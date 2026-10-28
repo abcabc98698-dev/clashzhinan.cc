@@ -31,6 +31,18 @@ const imageURL = new URL(image, siteBase);
 <meta name="generator" content={Astro.generator} />
 <meta name="theme-color" content="#ffffff" id="theme-color-meta" />
 
+<!-- Search Engine Mobile Adaptability & Transcoder Prevention -->
+<meta name="applicable-device" content="pc,mobile" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="format-detection" content="telephone=no" />
+
+<!-- Pre-reserved Search Engine Webmaster Verification Tokens -->
+{SITE_CONFIG.verification?.google && <meta name="google-site-verification" content={SITE_CONFIG.verification.google} />}
+{SITE_CONFIG.verification?.bing && <meta name="msvalidate.01" content={SITE_CONFIG.verification.bing} />}
+{SITE_CONFIG.verification?.baidu && <meta name="baidu-site-verification" content={SITE_CONFIG.verification.baidu} />}
+{SITE_CONFIG.verification?.shenma && <meta name="shenma-site-verification" content={SITE_CONFIG.verification.shenma} />}
+
 {
     SITE_CONFIG.imageServer &&
         SITE_CONFIG.imageServer.map((server) => (

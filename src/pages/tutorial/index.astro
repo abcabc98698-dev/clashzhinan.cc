@@ -1,0 +1,168 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SITE_CONFIG } from "@/config";
+import {
+    RiBookOpenLine,
+    RiArrowRightUpLine,
+    RiCheckLine,
+    RiComputerLine,
+    RiAppleLine,
+    RiAndroidLine,
+    RiToolsLine
+} from "@remixicon/react";
+
+const title = `2026 全平台科学上网与代理客户端使用教程：从零基础到进阶实战手册 // ${SITE_CONFIG.title}`;
+const description = "覆盖 Windows、macOS、iOS、Android、Linux 及路由器的科学上网配置实操手册。图文详解订阅导入、分流模式切换、DNS 泄漏防护与流媒体 4K 解锁。";
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+const pageUrl = `${siteBase}/tutorial`;
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": siteBase },
+        { "@type": "ListItem", "position": 2, "name": "使用教程专栏", "item": pageUrl }
+    ]
+};
+
+const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "2026 全平台科学上网与代理客户端实战教程专栏",
+    "description": description,
+    "url": pageUrl
+};
+---
+
+<Layout title={title} description={description}>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
+
+    <div class="max-w-5xl mx-auto w-full pt-2 sm:pt-4 md:pt-6 pb-20">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center gap-2 text-xs font-mono text-secondary-text mb-6">
+            <a href="/" class="hover:text-primary-text dark:hover:text-white transition-colors">首页</a>
+            <span>/</span>
+            <span class="text-primary-text dark:text-white font-medium">使用教程专栏</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-10 sm:mb-12 text-left">
+            <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-secondary-text">
+                    Hands-on Tutorials // Multi-Platform 2026
+                </span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl font-normal leading-tight tracking-tight text-primary-text dark:text-white mb-4">
+                全平台客户端使用与排障实战教程.
+            </h1>
+
+            <p class="text-sm sm:text-base text-secondary-text dark:text-gray-300 max-w-3xl font-light leading-relaxed">
+                工欲善其事，必先利其器。本专栏汇总覆盖桌面端（Windows/Mac）与移动端（iPhone/Android）的最权威代理客户端配置指南，提供从订阅一键导入到 TUN 模式底层网卡调优的全流程实操步骤。
+            </p>
+        </header>
+
+        <!-- 3-Step Universal Onboarding SOP -->
+        <section class="mb-14 p-6 sm:p-8 rounded-2xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-zinc-900/40">
+            <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white mb-6 flex items-center gap-2">
+                <RiBookOpenLine className="w-5 h-5 text-indigo-500" />
+                全平台通用 3 步快速上手 SOP
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="space-y-2">
+                    <div class="font-mono text-xs text-indigo-500 font-semibold">STEP 01</div>
+                    <h3 class="text-base font-medium text-primary-text dark:text-white">下载对应平台客户端</h3>
+                    <p class="text-xs text-secondary-text leading-relaxed">
+                        Windows 优选 <strong>Clash Verge Rev</strong>；macOS 优选 <strong>Mihomo Party</strong>；iOS 准备美区 Apple ID 下载 <strong>Shadowrocket</strong>；Android 安装 <strong>Clash Meta</strong>。
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="font-mono text-xs text-indigo-500 font-semibold">STEP 02</div>
+                    <h3 class="text-base font-medium text-primary-text dark:text-white">一键导入订阅配置链接</h3>
+                    <p class="text-xs text-secondary-text leading-relaxed">
+                        登录您的机场后台，点击“一键导入 Clash 订阅”，或复制通用订阅 URL 粘贴至客户端的“订阅/配置”界面并点击更新拉取节点。
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="font-mono text-xs text-indigo-500 font-semibold">STEP 03</div>
+                    <h3 class="text-base font-medium text-primary-text dark:text-white">开启代理与模式分流</h3>
+                    <p class="text-xs text-secondary-text leading-relaxed">
+                        在“代理”面板选择一个低延迟节点（如香港或日本），将运行模式设为“规则 (Rule)”，然后打开“系统代理 (System Proxy)”或“TUN 模式”开关。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- OS Specific Guides Matrix -->
+        <section class="mb-14">
+            <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white mb-6 flex items-center gap-2">
+                <RiToolsLine className="w-5 h-5 text-blue-500" />
+                分操作系统配置指南与客户端下载
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-5 rounded-xl border border-black/10 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30">
+                    <div class="flex items-center gap-2 mb-2 text-primary-text dark:text-white">
+                        <RiComputerLine className="w-5 h-5 text-blue-500" />
+                        <h3 class="font-medium">Windows 教程</h3>
+                    </div>
+                    <p class="text-xs text-secondary-text mb-3 leading-relaxed">推荐使用 Clash Verge Rev，自带 WinTUN 网卡驱动，开机自启稳定。</p>
+                    <a href="/clients" class="text-xs font-mono text-blue-500 hover:underline inline-flex items-center gap-1">查看配置 <RiArrowRightUpLine size={13} /></a>
+                </div>
+
+                <div class="p-5 rounded-xl border border-black/10 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30">
+                    <div class="flex items-center gap-2 mb-2 text-primary-text dark:text-white">
+                        <RiAppleLine className="w-5 h-5 text-purple-500" />
+                        <h3 class="font-medium">macOS 教程</h3>
+                    </div>
+                    <p class="text-xs text-secondary-text mb-3 leading-relaxed">推荐使用 Mihomo Party，原生适配 Apple Silicon M 系列芯片，休眠不断流。</p>
+                    <a href="/clients" class="text-xs font-mono text-purple-500 hover:underline inline-flex items-center gap-1">查看配置 <RiArrowRightUpLine size={13} /></a>
+                </div>
+
+                <div class="p-5 rounded-xl border border-black/10 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30">
+                    <div class="flex items-center gap-2 mb-2 text-primary-text dark:text-white">
+                        <RiAppleLine className="w-5 h-5 text-emerald-500" />
+                        <h3 class="font-medium">iOS 教程</h3>
+                    </div>
+                    <p class="text-xs text-secondary-text mb-3 leading-relaxed">Shadowrocket (小火箭) 或 Loon，需海外 Apple ID 购买，支持按需规则唤醒。</p>
+                    <a href="/clients" class="text-xs font-mono text-emerald-500 hover:underline inline-flex items-center gap-1">查看配置 <RiArrowRightUpLine size={13} /></a>
+                </div>
+
+                <div class="p-5 rounded-xl border border-black/10 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30">
+                    <div class="flex items-center gap-2 mb-2 text-primary-text dark:text-white">
+                        <RiAndroidLine className="w-5 h-5 text-amber-500" />
+                        <h3 class="font-medium">Android 教程</h3>
+                    </div>
+                    <p class="text-xs text-secondary-text mb-3 leading-relaxed">Clash Meta for Android 或 sing-box，支持细粒度应用分流与省电策略。</p>
+                    <a href="/clients" class="text-xs font-mono text-amber-500 hover:underline inline-flex items-center gap-1">查看配置 <RiArrowRightUpLine size={13} /></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Topic Clusters Internal Links -->
+        <section class="border-t border-black/10 dark:border-white/10 pt-10">
+            <h3 class="text-base font-mono uppercase tracking-widest text-secondary-text mb-6">
+                // 深度关联技术长文 (Topic Clusters)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a href="/blog/2026/the-digital-lounge" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">进阶实战</div>
+                    <div class="text-sm font-medium group-hover:text-indigo-500 transition-colors">客户端高阶配置手册与 8 大排障树</div>
+                </a>
+                <a href="/clash" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">Clash 核心</div>
+                    <div class="text-sm font-medium group-hover:text-indigo-500 transition-colors">Clash Verge 与 Mihomo 规则脚本编写</div>
+                </a>
+                <a href="/jichang" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">专线选型</div>
+                    <div class="text-sm font-medium group-hover:text-indigo-500 transition-colors">优质 IEPL 专线机场订阅获取与实测</div>
+                </a>
+            </div>
+        </section>
+    </div>
+</Layout>

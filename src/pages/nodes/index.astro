@@ -1,0 +1,144 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SITE_CONFIG } from "@/config";
+import {
+    RiGlobalLine,
+    RiArrowRightUpLine,
+    RiSpeedUpLine,
+    RiCompass3Line,
+    RiRadarLine
+} from "@remixicon/react";
+
+const title = `2026 全球跨境代理节点精选与延迟实测：香港、日本、新加坡与美西分析 // ${SITE_CONFIG.title}`;
+const description = "深度解析跨境代理节点的物理光缆拓扑与网络延迟。收录香港 CN2/CMI、日本 NTT/Softbank、新加坡专线与美西洛杉矶机房实测指标与节点筛选策略。";
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+const pageUrl = `${siteBase}/nodes`;
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": siteBase },
+        { "@type": "ListItem", "position": 2, "name": "节点专栏", "item": pageUrl }
+    ]
+};
+
+const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "2026 全球跨境代理节点与物理光缆延迟专栏",
+    "description": description,
+    "url": pageUrl
+};
+---
+
+<Layout title={title} description={description}>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
+
+    <div class="max-w-5xl mx-auto w-full pt-2 sm:pt-4 md:pt-6 pb-20">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center gap-2 text-xs font-mono text-secondary-text mb-6">
+            <a href="/" class="hover:text-primary-text dark:hover:text-white transition-colors">首页</a>
+            <span>/</span>
+            <span class="text-primary-text dark:text-white font-medium">节点专栏</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-10 sm:mb-12 text-left">
+            <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+                <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-secondary-text">
+                    Network Telemetry // Global PoP Nodes 2026
+                </span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl font-normal leading-tight tracking-tight text-primary-text dark:text-white mb-4">
+                跨境代理节点与网络拓扑图志.
+            </h1>
+
+            <p class="text-sm sm:text-base text-secondary-text dark:text-gray-300 max-w-3xl font-light leading-relaxed">
+                网络延迟并非由“节点名称中的毫秒数”决定，而是严格受制于物理光纤折射率（光在石英玻璃光纤中的传播速度约 204,218 km/s）与跨国海底光缆登陆点路由。本专栏收录主流出口区域的理论 RTT 下限、晚高峰真实抖动及多运营商接入实测。
+            </p>
+        </header>
+
+        <!-- Regional Node Matrix Table -->
+        <section class="mb-14">
+            <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white mb-4 flex items-center gap-2">
+                <RiCompass3Line className="w-5 h-5 text-cyan-500" />
+                全球主流出口机房网络特性与延迟基准
+            </h2>
+
+            <div class="overflow-x-auto rounded-xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-zinc-900/40 p-1">
+                <table class="w-full text-left text-xs sm:text-sm border-collapse min-w-[640px]">
+                    <thead>
+                        <tr class="border-b border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 font-mono text-secondary-text">
+                            <th class="p-3">地区 / 机房</th>
+                            <th class="p-3">国内入口基准延迟 (RTT)</th>
+                            <th class="p-3">优势场景</th>
+                            <th class="p-3">选型避坑要点</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-black/5 dark:divide-white/5 font-light">
+                        <tr>
+                            <td class="p-3 font-medium">香港 (Mega-i / Equinix HK1)</td>
+                            <td class="p-3 font-mono text-emerald-500 font-medium">8ms - 35ms</td>
+                            <td class="p-3">极低延迟网页浏览、炒股金融、实时互动</td>
+                            <td class="p-3 text-secondary-text">部分原生应用对香港 IP 有区域限制，建议配合分流</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-medium">日本东京 (Equinix TY2 / CCX)</td>
+                            <td class="p-3 font-mono text-blue-500 font-medium">35ms - 65ms</td>
+                            <td class="p-3">流媒体（Netflix/DMM）、外服游戏加速</td>
+                            <td class="p-3 text-secondary-text">避免使用公网 NTT 绕美直连，优选专线直达</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-medium">新加坡 (Equinix SG1)</td>
+                            <td class="p-3 font-mono text-cyan-500 font-medium">45ms - 75ms</td>
+                            <td class="p-3">东南亚电商（Shopee/Lazada）、TikTok 运营</td>
+                            <td class="p-3 text-secondary-text">需关注陆地光缆与海缆维护状态</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-medium">美西圣何塞/洛杉矶 (CoreSite/SV1)</td>
+                            <td class="p-3 font-mono text-purple-500 font-medium">125ms - 150ms</td>
+                            <td class="p-3">OpenAI / Claude / 海外大模型算力直连</td>
+                            <td class="p-3 text-secondary-text">公网走跨太平洋海缆极易在晚高峰丢包，务必认准专线</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Node Multiplying Factor Warning -->
+        <section class="mb-14 p-6 rounded-2xl border border-amber-500/20 bg-amber-500/5">
+            <h3 class="text-base font-serif font-medium text-amber-600 dark:text-amber-400 mb-2 flex items-center gap-2">
+                <RiRadarLine className="w-5 h-5 text-amber-500" />
+                防坑指南：警惕节点“倍率刺客”与虚标测速
+            </h3>
+            <p class="text-xs sm:text-sm text-secondary-text leading-relaxed">
+                部分不良服务商在节点名称中标注极低延迟（如 5ms），但这往往仅代表“客户端到国内第一跳入口”的握手时延，而非到达境外目的地的真实往返时延。此外，务必留意识别 <strong>2x / 5x / 10x</strong> 等高倍率节点，使用高倍率节点看 4K 视频可能会导致您的套餐流量在数小时内迅速耗尽。
+            </p>
+        </section>
+
+        <!-- Topic Clusters Internal Links -->
+        <section class="border-t border-black/10 dark:border-white/10 pt-10">
+            <h3 class="text-base font-mono uppercase tracking-widest text-secondary-text mb-6">
+                // 深度关联技术长文 (Topic Clusters)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a href="/traces" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">全球观测</div>
+                    <div class="text-sm font-medium group-hover:text-cyan-500 transition-colors">2026 全球跨境 PoP 骨干网拓扑与晚高峰延迟雷达</div>
+                </a>
+                <a href="/blog/2026/the-art-of-content-curation" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">选购评测</div>
+                    <div class="text-sm font-medium group-hover:text-cyan-500 transition-colors">42 家机场 IEPL 专线晚高峰实测横评</div>
+                </a>
+                <a href="/brands" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">品牌数据</div>
+                    <div class="text-sm font-medium group-hover:text-cyan-500 transition-colors">42 家机场节点覆盖与协议支持速查</div>
+                </a>
+            </div>
+        </section>
+    </div>
+</Layout>

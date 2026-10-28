@@ -1,0 +1,170 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SITE_CONFIG } from "@/config";
+import { AIRPORT_BRANDS } from "@/data/brands";
+import {
+    RiSpeedUpLine,
+    RiShieldCheckLine,
+    RiArrowRightUpLine,
+    RiGlobalLine,
+    RiAlertLine,
+    RiSparklingLine,
+    RiTimeLine
+} from "@remixicon/react";
+
+const title = `2026 机场推荐与高速专线选购终极指南：IEPL 晚高峰测速与避坑 // ${SITE_CONFIG.title}`;
+const description = "基于 2026 年网络实验室实测，全面评测主流专线机场。深入解析 IEPL 专线、BGP 隧道、IPLC 架构差异，提供晚高峰防卡顿、防跑路与高性价比机场选型决策。";
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+const pageUrl = `${siteBase}/jichang`;
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": siteBase },
+        { "@type": "ListItem", "position": 2, "name": "机场推荐专栏", "item": pageUrl }
+    ]
+};
+
+const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "2026 优质机场推荐与专线避坑选购专栏",
+    "description": description,
+    "url": pageUrl
+};
+
+const featuredBrands = AIRPORT_BRANDS.filter(b => b.tier <= 6);
+---
+
+<Layout title={title} description={description}>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
+
+    <div class="max-w-5xl mx-auto w-full pt-2 sm:pt-4 md:pt-6 pb-20">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center gap-2 text-xs font-mono text-secondary-text mb-6">
+            <a href="/" class="hover:text-primary-text dark:hover:text-white transition-colors">首页</a>
+            <span>/</span>
+            <span class="text-primary-text dark:text-white font-medium">机场推荐专栏</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-10 sm:mb-12 text-left">
+            <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-secondary-text">
+                    Curated Network // Airport Guide 2026
+                </span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl font-normal leading-tight tracking-tight text-primary-text dark:text-white mb-4">
+                机场推荐与专线选购全景指南.
+            </h1>
+
+            <p class="text-sm sm:text-base text-secondary-text dark:text-gray-300 max-w-3xl font-light leading-relaxed">
+                2026 年的科学上网生态已全面迈入“专线化”与“规则分流时代”。面对市面上数百家加速服务，用户最常遭遇的痛点是晚高峰断流卡顿、节点虚标倍率以及商家突发跑路。本专栏以严谨的测速数据为基础，拆解专线架构本质，提供可核实的闭眼选型依据。
+            </p>
+        </header>
+
+        <!-- Fast Executive Decision Matrix -->
+        <section class="mb-14">
+            <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white mb-4 flex items-center gap-2">
+                <RiSparklingLine className="w-5 h-5 text-emerald-500" />
+                2026 旗舰专线机场快速选型榜单 (Tier 1)
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {featuredBrands.map((brand) => (
+                    <div class="p-5 rounded-xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-zinc-900/40 hover:border-black/20 dark:hover:border-white/20 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-mono text-xs text-secondary-text">{brand.foundedYear} 运营</span>
+                                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-primary-text dark:text-zinc-200">{brand.lines[0]}</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-primary-text dark:text-white mb-1.5">{brand.name}</h3>
+                            <p class="text-xs text-secondary-text line-clamp-2 mb-3 leading-relaxed">{brand.summary}</p>
+                            <div class="font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold mb-4">{brand.entryPrice}</div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-black/5 dark:border-white/5 pt-3">
+                            <a href={`/brands/${brand.slug}`} class="text-xs font-mono text-secondary-text hover:text-primary-text dark:hover:text-white transition-colors">
+                                详细实测报告
+                            </a>
+                            <a href={brand.goRoute} target="_blank" rel="nofollow sponsored noopener" class="text-xs font-mono text-blue-600 dark:text-blue-400 inline-flex items-center gap-1 hover:underline">
+                                前往官网 <RiArrowRightUpLine size={13} />
+                            </a>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div class="mt-4 text-center">
+                <a href="/brands" class="inline-flex items-center gap-1.5 text-xs font-mono tracking-wider text-secondary-text hover:text-primary-text dark:hover:text-white transition-colors">
+                    查看完整 42 家机场品牌库与晚高峰横评 <RiArrowRightUpLine size={14} />
+                </a>
+            </div>
+        </section>
+
+        <!-- Line Architecture Comparison -->
+        <section class="mb-14">
+            <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white mb-4 flex items-center gap-2">
+                <RiGlobalLine className="w-5 h-5 text-blue-500" />
+                三大主流跨境线路架构技术解析
+            </h2>
+
+            <div class="space-y-4">
+                <div class="p-5 rounded-xl border border-black/10 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-base font-medium text-primary-text dark:text-white">1. 企业级 IEPL / IPLC 内网专线</h3>
+                        <span class="text-xs font-mono text-emerald-500 font-semibold">首选推荐 · 稳定性最高</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-secondary-text leading-relaxed">
+                        国际以太网私有专线，由运营商物理层开辟点对点内网连接（如深圳入口直达香港机房）。数据完全不通过公网，物理隔绝 GFW 深度包检测与公网拥堵，晚高峰丢包率通常低于 0.1%，是追求极致体验的首选。
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-xl border border-black/10 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-base font-medium text-primary-text dark:text-white">2. BGP 多线接入 + 隧道中转</h3>
+                        <span class="text-xs font-mono text-blue-500 font-semibold">性价比折中 · 速度较快</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-secondary-text leading-relaxed">
+                        国内入口采用中国电信、联通、移动三网 BGP 智能路由，跨境段采用加密公网隧道传输。在非高峰时段表现优异，但遭遇特殊时期或骨干网拥堵时，延迟与抖动可能高于专线。
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-xl border border-black/10 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-base font-medium text-primary-text dark:text-white">3. 公网直连 (Direct Connect)</h3>
+                        <span class="text-xs font-mono text-amber-500 font-semibold">低成本 · 晚高峰极易断流</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-secondary-text leading-relaxed">
+                        客户端直接连接海外 VPS（如普通香港、美西机房）。受跨国公网路由波动及 GFW 实时审查影响极大，晚高峰经常出现 50% 以上丢包与严重跳 ping，仅适合极低预算轻度文字浏览。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Topic Clusters Internal Links -->
+        <section class="border-t border-black/10 dark:border-white/10 pt-10">
+            <h3 class="text-base font-mono uppercase tracking-widest text-secondary-text mb-6">
+                // 关联知识专题 (Topic Clusters)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a href="/clash" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">客户端专栏</div>
+                    <div class="text-sm font-medium group-hover:text-emerald-500 transition-colors">Clash 核心与分流配置实战</div>
+                </a>
+                <a href="/nodes" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">节点与拓扑</div>
+                    <div class="text-sm font-medium group-hover:text-emerald-500 transition-colors">全球跨境 PoP 节点与光缆延迟雷达</div>
+                </a>
+                <a href="/tizi" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">避坑手册</div>
+                    <div class="text-sm font-medium group-hover:text-emerald-500 transition-colors">科学上网防跑路与容灾双持法则</div>
+                </a>
+            </div>
+        </section>
+    </div>
+</Layout>

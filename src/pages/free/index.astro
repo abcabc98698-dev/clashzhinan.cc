@@ -1,0 +1,136 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SITE_CONFIG } from "@/config";
+import {
+    RiAlertLine,
+    RiShieldCrossLine,
+    RiArrowRightUpLine,
+    RiLockPasswordLine,
+    RiCoinsLine,
+    RiCheckLine
+} from "@remixicon/react";
+
+const title = `2026 免费梯子与公益节点安全警示：白嫖风险、抓包窃密与免费翻墙真相 // ${SITE_CONFIG.title}`;
+const description = "深度揭露免费机场节点与公益订阅背后的安全隐患。剖析中间人劫持（MITM）、明文日志审计与账号被盗风险，提供安全透明的低成本合规替代方案。";
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+const pageUrl = `${siteBase}/free`;
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": siteBase },
+        { "@type": "ListItem", "position": 2, "name": "免费资源专栏", "item": pageUrl }
+    ]
+};
+
+const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "2026 免费梯子安全警示与低成本替代方案专栏",
+    "description": description,
+    "url": pageUrl
+};
+---
+
+<Layout title={title} description={description}>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
+
+    <div class="max-w-5xl mx-auto w-full pt-2 sm:pt-4 md:pt-6 pb-20">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center gap-2 text-xs font-mono text-secondary-text mb-6">
+            <a href="/" class="hover:text-primary-text dark:hover:text-white transition-colors">首页</a>
+            <span>/</span>
+            <span class="text-primary-text dark:text-white font-medium">免费资源专栏</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-10 sm:mb-12 text-left">
+            <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-secondary-text">
+                    Security Advisory // Free Proxy Risks 2026
+                </span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl font-normal leading-tight tracking-tight text-primary-text dark:text-white mb-4">
+                免费翻墙资源安全风险与真相.
+            </h1>
+
+            <p class="text-sm sm:text-base text-secondary-text dark:text-gray-300 max-w-3xl font-light leading-relaxed">
+                互联网没有免费的午餐，在极其消耗物理带宽成本的跨境网络领域更是如此。本专栏深度剖析“免费梯子”、“破解节点”与“GitHub 公益白嫖池”背后的真实运作模式，警惕因小失大导致的数字资产与个人隐私灾难。
+            </p>
+        </header>
+
+        <!-- 3 Dark Realities of Free Proxies -->
+        <section class="mb-14">
+            <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white mb-4 flex items-center gap-2">
+                <RiShieldCrossLine className="w-5 h-5 text-red-500" />
+                为什么说“免费往往是最昂贵的代价”？
+            </h2>
+
+            <div class="space-y-4">
+                <div class="p-5 rounded-xl border border-red-500/20 bg-red-500/5">
+                    <h3 class="text-base font-medium text-red-600 dark:text-red-400 mb-2">1. 中间人劫持（MITM）与明文凭据窃取</h3>
+                    <p class="text-xs sm:text-sm text-secondary-text leading-relaxed">
+                        当您使用免费节点时，搭建者即为您所有网络流量的出口网关。不法分子可以通过在出口端配置 SSL Strip 或伪造根证书，监听您的浏览历史、明文 Cookies、甚至截获社交平台与邮箱登录 Token。
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-xl border border-amber-500/20 bg-amber-500/5">
+                    <h3 class="text-base font-medium text-amber-600 dark:text-amber-400 mb-2">2. 设备沦为黑产爬虫与 DDoS 攻击“肉鸡”</h3>
+                    <p class="text-xs sm:text-sm text-secondary-text leading-relaxed">
+                        大量免费 VPN 客户端（尤其是免翻墙应用商店中的所谓永久免费翻墙 App）在后台常驻恶意守护进程，在您不知情的情况下，借用您的家庭宽带 IP 发起黑客攻击或刷流量欺诈。
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-xl border border-purple-500/20 bg-purple-500/5">
+                    <h3 class="text-base font-medium text-purple-600 dark:text-purple-400 mb-2">3. 极差的可用性与关键时刻断联</h3>
+                    <p class="text-xs sm:text-sm text-secondary-text leading-relaxed">
+                        公开的免费节点通常成千上万人挤在同一台廉价 VPS 上，网络丢包率高达 80% 以上，不仅网页转圈、视频卡在 360P，更在您需要查阅资料、紧急收发邮件的时刻瞬间失效。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Low Cost Safe Alternative -->
+        <section class="mb-14 p-6 rounded-2xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-zinc-900/40">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white flex items-center gap-2">
+                    <RiCoinsLine className="w-5 h-5 text-emerald-500" />
+                    合规高性价比替代：几元钱即可拥有的安全专线
+                </h2>
+            </div>
+            <p class="text-xs sm:text-sm text-secondary-text leading-relaxed mb-4">
+                与其冒着隐私泄露的巨大风险去使用随时失效的免费节点，不如选择每月仅需一杯奶茶钱（约 ¥7 - ¥15/月）的正规品牌。拥有全天候专人运维、企业级 IEPL 专线保障与完全隔离的用户数据协议。
+            </p>
+            <div class="flex flex-wrap gap-3">
+                <a href="/brands" class="px-4 py-2 rounded-lg bg-primary-text text-white dark:bg-white dark:text-black text-xs font-mono tracking-wider inline-flex items-center gap-1.5 hover:opacity-90 transition-opacity">
+                    浏览高性价比入门品牌 <RiArrowRightUpLine size={13} />
+                </a>
+            </div>
+        </section>
+
+        <!-- Topic Clusters Internal Links -->
+        <section class="border-t border-black/10 dark:border-white/10 pt-10">
+            <h3 class="text-base font-mono uppercase tracking-widest text-secondary-text mb-6">
+                // 深度关联技术长文 (Topic Clusters)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a href="/tizi" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">避坑指南</div>
+                    <div class="text-sm font-medium group-hover:text-red-500 transition-colors">新手科学上网防失联与选型手册</div>
+                </a>
+                <a href="/jichang" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">正规专线</div>
+                    <div class="text-sm font-medium group-hover:text-red-500 transition-colors">2026 稳定高速 IEPL 专线机场精选</div>
+                </a>
+                <a href="/tutorial" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">客户端配置</div>
+                    <div class="text-sm font-medium group-hover:text-red-500 transition-colors">全平台正规客户端安全配置规范</div>
+                </a>
+            </div>
+        </section>
+    </div>
+</Layout>

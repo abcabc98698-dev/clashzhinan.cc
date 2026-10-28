@@ -1,0 +1,136 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SITE_CONFIG } from "@/config";
+import {
+    RiTerminalBoxLine,
+    RiArrowRightUpLine,
+    RiShieldCheckLine,
+    RiSettings3Line,
+    RiBookOpenLine,
+    RiCheckLine
+} from "@remixicon/react";
+
+const title = `2026 Clash 完整使用教程与分流规则指南：Clash Verge 与 Mihomo 实战 // ${SITE_CONFIG.title}`;
+const description = "专注于 Clash 生态体系的技术知识库。系统讲解 Clash Verge Rev、Mihomo Party、Clash Meta 内核的订阅导入、TUN 虚拟网卡模式、分流策略组编写与常见报错排障。";
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+const pageUrl = `${siteBase}/clash`;
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": siteBase },
+        { "@type": "ListItem", "position": 2, "name": "Clash 专栏", "item": pageUrl }
+    ]
+};
+
+const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "2026 Clash 核心与分流配置实战专栏",
+    "description": description,
+    "url": pageUrl
+};
+---
+
+<Layout title={title} description={description}>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(collectionSchema)} />
+
+    <div class="max-w-5xl mx-auto w-full pt-2 sm:pt-4 md:pt-6 pb-20">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center gap-2 text-xs font-mono text-secondary-text mb-6">
+            <a href="/" class="hover:text-primary-text dark:hover:text-white transition-colors">首页</a>
+            <span>/</span>
+            <span class="text-primary-text dark:text-white font-medium">Clash 专栏</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-10 sm:mb-12 text-left">
+            <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-secondary-text">
+                    Core Architecture // Clash Ecosystem 2026
+                </span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl font-normal leading-tight tracking-tight text-primary-text dark:text-white mb-4">
+                Clash 核心配置与分流规则指南.
+            </h1>
+
+            <p class="text-sm sm:text-base text-secondary-text dark:text-gray-300 max-w-3xl font-light leading-relaxed">
+                自原版 Clash Premium 核心停更后，由开源社区驱动的 <strong>Mihomo (Clash.Meta)</strong> 已成为绝对的事实标准。本专栏系统梳理现代 Clash GUI 客户端选型、TUN 虚拟网卡模式的底层接管机制、分流规则集编写规范及自动化配置实战。
+            </p>
+        </header>
+
+        <!-- Modern Clash Ecosystem Stack -->
+        <section class="mb-14 grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="p-6 rounded-2xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-zinc-900/40">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-mono uppercase tracking-widest text-purple-600 dark:text-purple-400">Desktop Best Choice</span>
+                    <RiTerminalBoxLine className="w-5 h-5 text-purple-500" />
+                </div>
+                <h3 class="text-lg font-medium text-primary-text dark:text-white mb-2">Clash Verge Rev (Tauri 架构)</h3>
+                <p class="text-xs sm:text-sm text-secondary-text leading-relaxed mb-4">
+                    基于 Rust + Tauri 开发，内存占用从传统 Electron 的 300MB+ 骤降至 60MB。原生集成 Mihomo 核心，完美支持 VLESS、Hysteria2 与 TUIC 协议，是 2026 年 Windows 与 Linux 首选客户端。
+                </p>
+                <div class="flex items-center gap-2 text-xs font-mono text-secondary-text">
+                    <span class="px-2 py-0.5 rounded bg-black/5 dark:bg-white/5">内置 WinTUN</span>
+                    <span class="px-2 py-0.5 rounded bg-black/5 dark:bg-white/5">支持 Merge 脚本</span>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-zinc-900/40">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 dark:text-indigo-400">macOS & Design Best</span>
+                    <RiSettings3Line className="w-5 h-5 text-indigo-500" />
+                </div>
+                <h3 class="text-lg font-medium text-primary-text dark:text-white mb-2">Mihomo Party (拟物极简)</h3>
+                <p class="text-xs sm:text-sm text-secondary-text leading-relaxed mb-4">
+                    专门针对视觉体验与 macOS 交互深度定制的客户端。具备出色的策略组层级树形展示、节点延迟色谱分析与零配置开箱即用的系统代理接管能力。
+                </p>
+                <div class="flex items-center gap-2 text-xs font-mono text-secondary-text">
+                    <span class="px-2 py-0.5 rounded bg-black/5 dark:bg-white/5">Apple Silicon 原生</span>
+                    <span class="px-2 py-0.5 rounded bg-black/5 dark:bg-white/5">策略组树形图</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- TUN Mode Explanation -->
+        <section class="mb-14">
+            <h2 class="text-xl sm:text-2xl font-serif font-medium text-primary-text dark:text-white mb-4 flex items-center gap-2">
+                <RiShieldCheckLine className="w-5 h-5 text-purple-500" />
+                TUN 模式：彻底根治应用不走代理的终极方案
+            </h2>
+            <div class="p-6 rounded-xl border border-black/10 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30 space-y-3 text-xs sm:text-sm text-secondary-text leading-relaxed">
+                <p>
+                    传统“系统代理”仅能在应用层修改系统 HTTP/SOCKS 注册表，诸如 Windows UWP 应用（微软商店、Xbox）、命令行终端（Git、PowerShell）、部分游戏进程及 Docker 容器均会无视系统代理，导致直接走公网断连。
+                </p>
+                <p>
+                    开启 <strong>TUN 模式</strong> 会在网络协议栈的第三层（IP 层）创建一张虚拟网络适配器，强制将本机所有进出数据包全部路由至 Mihomo 核心，实现无需任何应用单独配置的 100% 全局流量精准分流。
+                </p>
+            </div>
+        </section>
+
+        <!-- Related Technical Deep Dives -->
+        <section class="border-t border-black/10 dark:border-white/10 pt-10">
+            <h3 class="text-base font-mono uppercase tracking-widest text-secondary-text mb-6">
+                // 深度关联技术长文 (Topic Clusters)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a href="/blog/2026/the-digital-lounge" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">实战手册</div>
+                    <div class="text-sm font-medium group-hover:text-purple-500 transition-colors">2026 全平台客户端配置与排障手册：Clash Verge、Mihomo 与 Sing-box 实战</div>
+                </a>
+                <a href="/tutorial" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">新手实操</div>
+                    <div class="text-sm font-medium group-hover:text-purple-500 transition-colors">全平台客户端使用与排障实战教程</div>
+                </a>
+                <a href="/clients" class="p-4 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-all bg-black/[0.01] dark:bg-white/[0.01] group">
+                    <div class="text-[11px] font-mono text-secondary-text mb-1">工具下载</div>
+                    <div class="text-sm font-medium group-hover:text-purple-500 transition-colors">全平台网络代理客户端官方下载矩阵</div>
+                </a>
+            </div>
+        </section>
+    </div>
+</Layout>

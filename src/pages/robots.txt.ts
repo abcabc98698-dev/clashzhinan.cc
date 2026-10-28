@@ -10,7 +10,39 @@ Disallow: /go/
 Disallow: /search/
 Disallow: /404/
 
-# Allow AI crawlers to access raw markdown context
+# Search Engine Crawlers Optimization
+User-agent: Googlebot
+Allow: /
+Disallow: /go/
+Disallow: /search/
+Disallow: /404/
+
+User-agent: bingbot
+Allow: /
+Disallow: /go/
+Disallow: /search/
+Disallow: /404/
+
+User-agent: Baiduspider
+Allow: /
+Disallow: /go/
+Disallow: /search/
+Disallow: /404/
+
+User-agent: yisouspider
+Allow: /
+Disallow: /go/
+Disallow: /search/
+Disallow: /404/
+
+# Allow GEO & LLM engines to access raw markdown context
+User-agent: GPTBot
+Allow: /raw/
+
+User-agent: ClaudeBot
+Allow: /raw/
+
+User-agent: PerplexityBot
 Allow: /raw/
 
 Sitemap: ${site}/sitemap.xml
