@@ -69,7 +69,7 @@ export default function TextReveal({
     if (type === "char") {
         let globalCharIndex = 0;
         return (
-            <motion.h1
+            <motion.div aria-hidden="true"
                 style={{ overflow: "hidden", display: "flex", flexWrap: "wrap", ...style }}
                 variants={container}
                 initial="hidden"
@@ -89,7 +89,7 @@ export default function TextReveal({
                         })}
                     </span>
                 ))}
-            </motion.h1>
+            </motion.div>
         );
     }
 

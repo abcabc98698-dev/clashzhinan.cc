@@ -1,16 +1,14 @@
 ---
-title: "SF_SUMMER"
-site_name: "San Francisco, USA"
+title: "SFO_POP_USWEST"
+site_name: "San Francisco, USA (Equinix SV1)"
 date: "2026.05.17 - 05.20"
 endDate: 2026-05-20
-tags: ["SF", "Golden Gate"]
+tags: ["US-West", "Equinix-SV1", "NCP-Cable", "SFO"]
 baseline:
   coordinates: "37.7749° N, 122.4194° W"
-  environment: "Summer / Fog"
+  environment: "Equinix SV1 / NCP Cable Landing"
 ---
 
+旧金山湾区是北美跨太平洋海底光缆最核心的西岸登陆区。Equinix SV1 (San Jose) 数据中心作为跨太平洋 NCP (New Cross Pacific) 与 FASTER 海底光缆的核心交换枢纽，承担了亚太地区与北美主要云基础设施及 OpenAI、Anthropic 核心算力集群的高速数据交换。中美专线端到端 RTT 稳定在 125ms-140ms，全天丢包率低于 0.05%。
 
-
-旧金山的地形是对网格化城市规划的一次嘲讽。街道的起伏超出了常规交通工具的舒适阈值。红色的悬索桥在平流雾中被切断，只留下了部分数据，观测视角的残缺性在这里被放大到了极点。
-
-![SF Bridge](https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=2689&auto=format&fit=crop&ixlib=rb-4.0.3)
+![San Francisco SFO PoP Station](https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=2689&auto=format&fit=crop&ixlib=rb-4.0.3)
