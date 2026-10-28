@@ -290,6 +290,9 @@ export default defineConfig({
         domains: SITE_CONFIG.imageServer,
     },
     vite: {
+        resolve: {
+            dedupe: ['react', 'react-dom']
+        },
         plugins: [tailwindcore()],
         build: {
             rollupOptions: {
