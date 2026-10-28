@@ -19,6 +19,8 @@ interface Props {
     modifiedDate?: Date;
     authorName?: string;
     preconnectImageServer?: boolean;
+    robots?: string;
+    disableDefaultWebSiteSchema?: boolean;
 }
 
 const {
@@ -30,6 +32,8 @@ const {
     modifiedDate,
     authorName,
     preconnectImageServer = false,
+    robots,
+    disableDefaultWebSiteSchema = false,
 } =
     Astro.props;
 
@@ -47,6 +51,7 @@ const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
             description={description}
             image={image}
             preconnectImageServer={preconnectImageServer}
+            robots={robots}
         />
         <ClientRouter
         />
@@ -138,7 +143,7 @@ const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
             )
         }
         {
-            Astro.url.pathname === "/" && (
+            Astro.url.pathname === "/" && !disableDefaultWebSiteSchema && (
                 <script
                     type="application/ld+json"
                     set:html={JSON.stringify({

@@ -29,10 +29,18 @@ export async function getStaticPaths() {
                     // Fallback to .md
                 }
             }
+            // Register primary extension path
             paths.push({
                 params: { collection: name, slug: entry.id + extension },
                 props: { entry, baseDir, collection: name, extension }
             });
+            // If .mdx, also register .md alias so llms-full.txt links never 404
+            if (extension === '.mdx') {
+                paths.push({
+                    params: { collection: name, slug: entry.id + '.md' },
+                    props: { entry, baseDir, collection: name, extension }
+                });
+            }
         }
     }
 

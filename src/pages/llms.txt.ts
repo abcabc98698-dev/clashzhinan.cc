@@ -18,12 +18,12 @@ export async function GET() {
 - [Traces](${site}/traces)
 - [About](${site}/about)
 
-## LLM & AI Services
+## LLM & AI Context Resources
 
-- [MCP Server](${site}/mcp) - Model Context Protocol entry point.
-- [MCP Search](${site}/mcp/search) - Semantic search endpoint.
-- [MCP Context](${site}/mcp/context) - Content retrieval endpoint.
-- [LLMs Full Index](${site}/llms-full.txt) - Complete index of all documents with raw markdown links.
+- [LLMs Full Index](${site}/llms-full.txt) - Complete index of all documents with raw markdown links for LLM context ingestion.
+- [Airport Brands Matrix](${site}/brands) - Technical comparison and network telemetry for 42 airport providers.
+- [Clients Guide](${site}/clients) - Complete cross-platform proxy and bypass client matrix.
+- [Traces Telemetry](${site}/traces) - Global cross-border PoP network telemetry and cable physics benchmarks.
 
 `;
 

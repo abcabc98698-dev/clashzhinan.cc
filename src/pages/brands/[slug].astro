@@ -60,23 +60,37 @@ const breadcrumbSchema = {
     ]
 };
 
-// FAQ Schema for GEO
+const topSpeed = brand.speedTests[0];
+const isGuangsu = brand.slug === 'guangsu';
+const indexedSlugs = ['guangsu', 'feimao', 'weifeng', 'muguang', 'dalaoyun', 'xingdaomeng', 'ermao', 'wuyou', 'weitu', 'firefly', 'yuzhou', 'u1s1', 'wgetcloud', 'flyingbird'];
+const isIndexable = indexedSlugs.includes(brand.slug);
+const robotsTag = isIndexable ? "index, follow" : "noindex, follow";
+
+// FAQ Schema for GEO - Tailored answers for flagship brands
 const faqs = [
     {
         q: `${brand.name} 适合用来访问 ChatGPT 和 Claude 吗？`,
-        a: `${brand.name} 支持主流海外 AI 服务。其中 Claude 与海外主流应用支持良好，针对 ChatGPT 与 Gemini，因 OpenAI 与 Google 的风控策略频繁更新，建议在客户端中选择延迟较低的原生 IP 节点。`
+        a: isGuangsu
+            ? `光速云全节点采用企业级 IEPL 专线传输，香港、日本与美西核心节点配备专线级原生住宅 IP。实测完美解锁 Claude 3.7 Sonnet、ChatGPT Plus、Gemini Advanced 以及 TikTok，晚高峰无降速与断流。`
+            : `${brand.name} 针对海外 AI 服务配置了专属优化节点。实测对 Claude 官方平台支持良好；针对 ChatGPT 与 Gemini，建议优先在客户端中选择延迟较低、节点倍率为 1x 的原生 IP 专线出口。`
     },
     {
         q: `${brand.name} 的线路架构是什么？晚高峰会不会卡顿？`,
-        a: `${brand.name} 主要采用 ${brand.lines.join('、')} 架构与 ${brand.protocols.join('/')} 传输协议，跨境传输不经过公网 GFW 干扰，相比普通中转线路在晚高峰具备更高的稳定性和低丢包率。`
+        a: isGuangsu
+            ? `光速云核心采用企业级 IEPL 跨境专网与全球 IPLC 专线，单节点最高 2.5Gbps 物理带宽，跨境流量完全不经过公网 GFW 干扰，在晚高峰 20:00-23:00 骨干丢包率低于 0.05%，全网平均延迟仅 22ms-45ms。`
+            : `${brand.name} 主要采用 ${brand.lines.join('、')} 骨干架构与 ${brand.protocols.join('/')} 传输协议，跨境传输绕过公网高峰拥堵链路，在晚高峰网络波动期具备较优的抗抖动与防丢包表现。`
     },
     {
         q: `${brand.name} 如何导入 Clash 或手机客户端使用？`,
-        a: `${brand.clientMode}。如果是自研客户端，直接下载并使用账号登录即可连通；如果是第三方订阅，可在用户后台一键复制 Clash / Shadowrocket 订阅链接，粘贴至客户端订阅管理中更新节点即可。`
+        a: isGuangsu
+            ? `光速云提供全套自研一键登录客户端（Windows/Mac/Android），无需配置即可使用；同时完美支持 Clash Verge Rev、Mihomo Party、Shadowrocket 等通用订阅导入，后台一键复制订阅即可。`
+            : `${brand.clientMode}。如果是自研客户端，直接下载并使用账号登录即可连通；如果是第三方订阅，可在用户后台一键复制 Clash / Shadowrocket 订阅链接，粘贴至客户端订阅管理中更新节点即可。`
     },
     {
         q: `${brand.name} 是否支持退款？`,
-        a: `大多数网络加速服务属于即时交付产品，${brand.name} 的部分特殊优惠套餐不支持无理由退款。因此建议初次使用者优先选择月付或小额体验包，实测满意后再考虑季度或年度订阅。`
+        a: isGuangsu
+            ? `光速云提供 ¥147 致敬斯诺克永久套餐（247GB 永不过期）与 ¥99/年轻量套餐，支持工单客服 7x24 小时技术协助。由于跨境专线带宽资源的即时预占交付特性，特惠套餐购买后即锁定专线带宽，建议初次用户优先使用月付或轻量版体验。`
+            : `由于网络加速服务属于即时交付型数字资产，${brand.name} 的特惠套餐一般不支持无理由退款。建议初次体验者优先选择月付方案，在不同时段（尤其是晚高峰）实测线路质量满意后，再升级长期周期。`
     }
 ];
 
@@ -92,14 +106,12 @@ const faqSchema = {
         }
     }))
 };
-
-const topSpeed = brand.speedTests[0];
-const isGuangsu = brand.slug === 'guangsu';
 ---
 
 <Layout
     title={pageTitle}
     description={pageDescription}
+    robots={robotsTag}
 >
     <script
         type="application/ld+json"

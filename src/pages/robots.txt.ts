@@ -7,7 +7,11 @@ export const GET: APIRoute = () => {
     const robotsTxt = `User-agent: *
 Allow: /
 Disallow: /go/
-Disallow: /raw/
+Disallow: /search/
+Disallow: /404/
+
+# Allow AI crawlers to access raw markdown context
+Allow: /raw/
 
 Sitemap: ${site}/sitemap.xml
 # LLM Context: ${site}/llms.txt

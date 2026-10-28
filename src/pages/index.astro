@@ -25,6 +25,14 @@ const homepageSchema = {
             "url": SITE_CONFIG.site,
             "name": "Clash指南网",
             "description": "2026 机场推荐、客户端配置与网络科学选型全景门户",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": `${SITE_CONFIG.site}/search?q={search_term_string}`
+                },
+                "query-input": "required name=search_term_string"
+            },
             "publisher": {
                 "@type": "Organization",
                 "@id": `${SITE_CONFIG.site}/#organization`,
@@ -83,6 +91,7 @@ const homepageSchema = {
 <Layout
     title={`Clash指南网 // 2026 机场推荐、客户端高阶配置与科学选型全景门户`}
     description="Clash指南网 (clashzhinan.cc) 是专注于网络工程与科学上网的技术知识库。系统评测 42 家主流机场品牌、全平台客户端（Clash Verge Rev、Mihomo Party、Sing-box）配置实战、跨国流媒体 4K 与 AI 解锁指南及晚高峰延迟雷达。"
+    disableDefaultWebSiteSchema={true}
 >
     <!-- Injected JSON-LD Schema -->
     <script type="application/ld+json" set:html={JSON.stringify(homepageSchema)} />

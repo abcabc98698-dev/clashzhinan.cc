@@ -227,18 +227,27 @@ export default defineConfig({
         })
     },
     integrations: [mdx(), sitemap({
-        filter: (page) => !page.includes('/go/'),
+        filter: (page) => {
+            const urlPath = new URL(page).pathname;
+            if (urlPath.includes('/go/')) return false;
+            if (urlPath.includes('/search')) return false;
+            if (urlPath.includes('/404')) return false;
+            if (urlPath.includes('/gallery')) return false;
+            if (urlPath.includes('/review/')) return false;
+            if (urlPath.includes('single-page-seo-audit')) return false;
+            if (urlPath.startsWith('/brands/')) {
+                const slug = urlPath.replace(/^\/brands\//, '').replace(/\/$/, '');
+                if (slug) {
+                    const indexedSlugs = ['guangsu', 'feimao', 'weifeng', 'muguang', 'dalaoyun', 'xingdaomeng', 'ermao', 'wuyou', 'weitu', 'firefly', 'yuzhou', 'u1s1', 'wgetcloud', 'flyingbird'];
+                    if (!indexedSlugs.includes(slug)) return false;
+                }
+            }
+            return true;
+        },
         chunks: {
             'blog': (item) => {
                 const urlPath = new URL(item.url).pathname;
                 if (urlPath === '/blog' || urlPath === '/blog/' || urlPath.startsWith('/blog/')) {
-                    return item;
-                }
-                return undefined;
-            },
-            'gallery': (item) => {
-                const urlPath = new URL(item.url).pathname;
-                if (urlPath === '/gallery' || urlPath === '/gallery/' || urlPath.startsWith('/gallery/')) {
                     return item;
                 }
                 return undefined;
@@ -277,7 +286,10 @@ export default defineConfig({
                     const defaultSitemap = fileURLToPath(new URL('sitemap-pages-0.xml', dir));
 
                     await processSitemapFile(blogSitemap, 'blog', today, latestBlogDate, latestGalleryDate, latestTracesDate, today);
-                    await processSitemapFile(gallerySitemap, 'photos', today, latestBlogDate, latestGalleryDate, latestTracesDate, today);
+                    try {
+                        await fs.access(gallerySitemap);
+                        await processSitemapFile(gallerySitemap, 'photos', today, latestBlogDate, latestGalleryDate, latestTracesDate, today);
+                    } catch {}
                     await processSitemapFile(tracesSitemap, 'traces', today, latestBlogDate, latestGalleryDate, latestTracesDate, today);
                     await processSitemapFile(defaultSitemap, 'pages', today, latestBlogDate, latestGalleryDate, latestTracesDate, today);
                 } catch (err) {

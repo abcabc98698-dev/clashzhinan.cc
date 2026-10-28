@@ -72,6 +72,7 @@ const imageSchemas = photo.images.map((image, index) => ({
     title={`${photo.name} // ${SITE_CONFIG.title}`}
     description={photo.images[0]?.description || photo.name}
     preconnectImageServer={true}
+    robots="noindex, follow"
 >
     <!-- Structured Data -->
     <script

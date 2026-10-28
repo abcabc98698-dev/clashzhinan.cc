@@ -5,7 +5,11 @@ import { SITE_CONFIG } from "@/config";
 import TextReveal from "@/components/ui/TextReveal";
 ---
 
-<Layout title={`SEARCH // ${SITE_CONFIG.title}`} description=`Search the ${SITE_CONFIG.title} archive`>
+<Layout 
+    title={`SEARCH // ${SITE_CONFIG.title}`} 
+    description=`Search the ${SITE_CONFIG.title} archive`
+    robots="noindex, follow"
+>
     <div class="max-w-6xl mx-auto w-full pt-2 sm:pt-4 md:pt-8 pb-16 sm:pb-20">
         <div class="hidden md:flex fixed top-0 right-0 h-screen z-[-10] select-none pointer-events-none overflow-hidden items-center justify-center">
             <TextReveal
