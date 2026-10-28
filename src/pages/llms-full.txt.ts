@@ -27,7 +27,7 @@ ${projects.map(entry => `- [${entry.data.title}](${site}/projects#${entry.id}) (
 
 ## Gallery & Photos (Web Only)
 
-${photos.map(entry => `- [${entry.data.name}](${site}/gallery/2025/${entry.id.toLowerCase()})`).join('\n')}
+${photos.map(entry => `- [${entry.data.name}](${site}/gallery/${entry.id.toLowerCase()})`).join('\n')}
 
 ## Traces
 

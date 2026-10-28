@@ -1,6 +1,6 @@
 export const MCP_CONFIG = {
   server: {
-    name: 'growing-galaxy-mcp',
+    name: 'clashzhinan-mcp',
     version: '1.5.0',
     protocolVersion: '2024-11-05'
   },

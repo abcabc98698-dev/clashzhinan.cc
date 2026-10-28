@@ -82,27 +82,26 @@ export default function Navigation({ title, logoSrc, navItems, pathname = "" }: 
                     
                     {/* 1. Logo (Always Top Left) */}
                     <div className="col-start-1 row-start-1 flex items-center shrink-0 order-1">
-                        {logoSrc ? (
-                            <a href="/" className="block relative group outline-none" aria-label="Home">
+                        <a href="/" className="flex items-center gap-2.5 group outline-none select-none" aria-label={title || "Home"}>
+                            {logoSrc ? (
                                 <div
-                                    className="h-[18px] sm:h-[22px] aspect-[1.446] bg-current text-primary-text dark:text-white opacity-85 dark:opacity-100 hover:scale-[1.04] transition-all duration-300 ease-out" 
+                                    className="w-5 h-5 sm:w-6 sm:h-6 bg-current text-primary-text dark:text-white opacity-90 dark:opacity-100 group-hover:scale-105 transition-all duration-300 ease-out" 
                                     style={{ 
                                         WebkitMaskImage: `url(${logoSrc})`,
                                         WebkitMaskSize: "contain",
                                         WebkitMaskRepeat: "no-repeat",
-                                        WebkitMaskPosition: "left center",
+                                        WebkitMaskPosition: "center",
                                         maskImage: `url(${logoSrc})`,
                                         maskSize: "contain",
                                         maskRepeat: "no-repeat",
-                                        maskPosition: "left center"
+                                        maskPosition: "center"
                                     }} 
                                 />
-                            </a>
-                        ) : (
-                            <a href="/" className="text-sm font-medium text-primary-text dark:text-white hover:opacity-80 transition-opacity block px-2 py-1">
+                            ) : null}
+                            <span className="font-serif tracking-tight font-medium text-sm sm:text-base text-primary-text dark:text-white group-hover:opacity-80 transition-opacity">
                                 {title}
-                            </a>
-                        )}
+                            </span>
+                        </a>
                     </div>
 
                     {/* 2. Controls: Search Trigger & Theme Toggle (Mobile Top Right, Desktop Rightmost) */}

@@ -49,6 +49,8 @@ const {
     prevPost,
 } = Astro.props;
 
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+
 const {
     Content,
     headings,
@@ -145,20 +147,20 @@ const blogCopyright =
                 {
                     "@type": "ListItem",
                     "position": 1,
-                    "name": "Home",
-                    "item": SITE_CONFIG.site
+                    "name": "首页",
+                    "item": siteBase
                 },
                 {
                     "@type": "ListItem",
                     "position": 2,
-                    "name": "Blog",
-                    "item": `${SITE_CONFIG.site}/blog`
+                    "name": "博客",
+                    "item": `${siteBase}/blog`
                 },
                 {
                     "@type": "ListItem",
                     "position": 3,
                     "name": entry.data.title,
-                    "item": `${SITE_CONFIG.site}/blog/${entry.id}`
+                    "item": `${siteBase}/blog/${entry.id}`
                 }
             ]
         })}
@@ -281,7 +283,7 @@ const blogCopyright =
                                                 ? `${blogCopyright.proof.baseUrl}/blog/${entry.id}`
                                                 : blogCopyright.proof.baseUrl
                                         }
-                                        target="_blank"
+                                        {blogCopyright.proof?.baseUrl?.startsWith("/") ? undefined : "_blank"}
                                         rel="noopener noreferrer"
                                         class="inline-flex items-center gap-1.5 text-xs font-mono text-primary-text transition-colors group/link pb-1 shrink-0 whitespace-nowrap md:mt-1"
                                     >

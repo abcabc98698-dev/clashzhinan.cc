@@ -1,4 +1,4 @@
-# Ceda.is Markdown & MDX Syntax Guide
+# Clash指南 Markdown & MDX 语法指南
 
 This project supports **MDX**, which allows you to use standard Markdown syntax along with JSX components and mathematical formulas.
 

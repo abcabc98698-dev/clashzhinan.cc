@@ -88,7 +88,7 @@ export default function DynamicIcon({
         .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
         .join('');
 
-    // Check if the last or first word maps to an alias (e.g. "Growing Galaxy" -> "galaxy" -> "Planet")
+    // Check if the last or first word maps to an alias (e.g. "Network Topology" -> "network" -> "Global")
     const lastWordAlias = words.length > 1 ? aliasMap[words[words.length - 1].toLowerCase()] : undefined;
     const firstWordAlias = words.length > 1 ? aliasMap[words[0].toLowerCase()] : undefined;
 

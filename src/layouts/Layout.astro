@@ -32,6 +32,8 @@ const {
     preconnectImageServer = false,
 } =
     Astro.props;
+
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
 ---
 
 <!doctype html>
@@ -107,7 +109,7 @@ const {
                         author: {
                             "@type": "Person",
                             name: authorName || SITE_CONFIG.author,
-                            url: `${Astro.site || SITE_CONFIG.site}/about`
+                            url: `${siteBase}/about`
                         },
                         datePublished: publishDate.toISOString(),
                         dateModified: (modifiedDate || publishDate).toISOString(),
@@ -131,6 +133,28 @@ const {
                                 contentUrl: new URL(rawContentUrl, Astro.site || SITE_CONFIG.site).toString(),
                             }
                         } : {})
+                    })}
+                />
+            )
+        }
+        {
+            Astro.url.pathname === "/" && (
+                <script
+                    type="application/ld+json"
+                    set:html={JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "WebSite",
+                        name: SITE_CONFIG.title,
+                        url: siteBase,
+                        description: SITE_CONFIG.description,
+                        potentialAction: {
+                            "@type": "SearchAction",
+                            target: {
+                                "@type": "EntryPoint",
+                                urlTemplate: `${siteBase}/search?q={search_term_string}`
+                            },
+                            "query-input": "required name=search_term_string"
+                        }
                     })}
                 />
             )

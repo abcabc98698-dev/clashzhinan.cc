@@ -1,6 +1,6 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
-    "name": "growing-galaxy",
+    "name": "clashzhinan",
     "main": "workers/index.ts",
     "compatibility_date": "2024-03-20",
     "assets": {
@@ -10,7 +10,7 @@
     "vectorize": [
         {
             "binding": "VECTORIZE",
-            "index_name": "growing-galaxy-mcp"
+            "index_name": "clashzhinan-mcp"
         }
     ],
     "ai": {

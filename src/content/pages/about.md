@@ -1,26 +1,33 @@
 ---
-title: "About"
-description: "Defining the philosophy behind Growing Galaxy"
+title: "关于"
+description: "关于 Clash指南 的设计初衷、技术理念与数字漫游哲学"
 ---
 
-## About Growing Galaxy
+## 关于 Clash指南
 
-Growing Galaxy is a digital exploration of minimalism, technology, and storytelling. It serves as a sanctuary for curated digital narratives, designed to break away from the noise of the modern web.
+Clash指南（ClashZhinan）是一个专注于网络技术探索、规则架构解析与数字漫游的开放式知识库。在算法推荐与信息洪流的喧嚣时代，我们构建这一方纯粹的数字静室，为探索者提供结构化、高价值的思考与技术沉淀。
 
-## The Philosophy
+## 核心哲学：数字精简主义
 
-We believe in **digital essentialism**. In a world of infinite scroll and notification overload, we aim to create a space that respects your attention.
+我们坚信 **数字精简（Digital Essentialism）** 的价值。去除多余的弹窗、繁杂侧栏与第三方跟踪锚点，让技术文档与思考回归内容本身。每一次翻阅，都应当如漫步于严谨而通透的艺术展厅。
 
-> "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away." — Antoine de Saint-Exupéry
+- **纯粹性**：零侵入式暗桩，全自主掌控的内容与资产体系。
+- **专注度**：无干扰排版，舒适的暗色与浅色动态视觉平衡。
+- **开放性**：遵循现代开放网络标准，提供全方位语义化与机器可读接入。
 
-## The Tech Stack
+## 技术架构
 
-This site is built with:
+本站基于现代高性能静态站点架构研发：
 
-- **Astro**: For performance and content-driven architecture.
-- **Tailwind CSS**: For utility-first styling.
-- **Vercel**: For global deployment.
+- **Astro 7**：底层零 JS 静态输出，极致轻量与高响应速度。
+- **Tailwind CSS 4**：基于设计令牌的现代响应式排版。
+- **Pagefind**：完全本地化的轻量级离线全文搜索引擎。
+- **语义化标准**：原生 Schema.org 结构化数据、OpenGraph 协议与自动化 XML Sitemap。
 
-## Contact
+## 联系与订阅
 
-If you‘d like to reach out, find us on [X](https://x.com/OwenCedaric) or [GitHub](https://github.com/OwenCedaric).
+你可以通过以下渠道关注更新或与我们取得联系：
+
+- **RSS 订阅**：[订阅源](/rss.xml)
+- **探索足迹**：[Traces 漫游图志](/traces)
+- **电子邮箱**：[contact@clashzhinan.cc](mailto:contact@clashzhinan.cc)

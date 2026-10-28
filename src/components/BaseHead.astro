@@ -8,14 +8,8 @@ interface Props {
     preconnectImageServer?: boolean;
 }
 
-const canonicalURL =
-    new URL(
-        Astro
-            .url
-            .pathname,
-        Astro.site ||
-            SITE_CONFIG.site,
-    );
+const siteBase = Astro.site || SITE_CONFIG.site;
+const canonicalURL = new URL(Astro.url.pathname, siteBase);
 
 const {
     title,
@@ -23,63 +17,34 @@ const {
     image = SITE_CONFIG.defaultImage,
     preconnectImageServer = false,
 } = Astro.props;
+
+const imageURL = new URL(image, siteBase);
 ---
 
 <!-- Global Metadata -->
-<meta
-    charset="utf-8"
-/>
-<meta
-    name="viewport"
-    content="width=device-width,initial-scale=1"
-/>
-<link
-    rel="icon"
-    type="image/svg+xml"
-    href="/favicon.svg"
-/>
-<meta
-    name="generator"
-    content={Astro.generator}
-/>
-<meta
-    name="theme-color"
-    content="#ffffff"
-    id="theme-color-meta"
-/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content="#ffffff" id="theme-color-meta" />
 
 {
     SITE_CONFIG.imageServer &&
-        SITE_CONFIG.imageServer.map(
-            (
-                server,
-            ) => (
-                <>
-                    <link
-                        rel="dns-prefetch"
-                        href={
-                            server
-                        }
-                    />
-                    {preconnectImageServer && (
-                        <link
-                            rel="preconnect"
-                            href={
-                                server
-                            }
-                            crossorigin
-                        />
-                    )}
-                </>
-            ),
-        )
+        SITE_CONFIG.imageServer.map((server) => (
+            <>
+                <link rel="dns-prefetch" href={server} />
+                {preconnectImageServer && (
+                    <link rel="preconnect" href={server} crossorigin />
+                )}
+            </>
+        ))
 }
 
 <!-- Machine-readable RSS Feed Auto-Discovery -->
 <link
     rel="alternate"
     type="application/rss+xml"
-    href={new URL("/rss.xml", Astro.site || SITE_CONFIG.site).toString()}
+    href={new URL("/rss.xml", siteBase).toString()}
     title={SITE_CONFIG.title}
 />
 
@@ -87,87 +52,37 @@ const {
 <link
     rel="alternate"
     type="text/markdown"
-    href={new URL("/llms.txt", Astro.site || SITE_CONFIG.site).toString()}
+    href={new URL("/llms.txt", siteBase).toString()}
     title="LLM Context"
 />
 
-<!-- Font Preloads -->
-<!-- Fonts are imported locally in Layout.astro -->
-
 <!-- Canonical URL -->
-<link
-    rel="canonical"
-    href={canonicalURL}
-/>
+<link rel="canonical" href={canonicalURL} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
-<meta
-    name="title"
-    content={title}
-/>
-<meta
-    name="description"
-    content={description}
-/>
-<meta
-    name="author"
-    content={SITE_CONFIG.author}
-/>
-<meta
-    name="robots"
-    content="index, follow"
-/>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="author" content={SITE_CONFIG.author} />
+<meta name="robots" content="index, follow" />
 
 <!-- Open Graph / Facebook -->
-<meta
-    property="og:type"
-    content="website"
-/>
-<meta
-    property="og:url"
-    content={Astro.url}
-/>
-<meta
-    property="og:title"
-    content={title}
-/>
-<meta
-    property="og:description"
-    content={description}
-/>
-<meta
-    property="og:image"
-    content={new URL(
-        image,
-        Astro.url,
-    )}
-/>
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={SITE_CONFIG.title} />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageURL} />
 
 <!-- Twitter -->
-<meta
-    property="twitter:card"
-    content="summary_large_image"
-/>
-<meta
-    property="twitter:url"
-    content={Astro.url}
-/>
-<meta
-    property="twitter:title"
-    content={title}
-/>
-<meta
-    property="twitter:description"
-    content={description}
-/>
-<meta
-    property="twitter:image"
-    content={new URL(
-        image,
-        Astro.url,
-    )}
-/>
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:site" content="@clashzhinan" />
+<meta property="twitter:creator" content="@clashzhinan" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={imageURL} />
 
 <script is:inline>
     const getTheme = () => {
