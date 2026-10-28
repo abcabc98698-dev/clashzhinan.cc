@@ -6,6 +6,8 @@ export const GET: APIRoute = () => {
     const site = (SITE_CONFIG.site || 'https://clashzhinan.cc').replace(/\/$/, '');
     const robotsTxt = `User-agent: *
 Allow: /
+Disallow: /go/
+Disallow: /raw/
 
 Sitemap: ${site}/sitemap.xml
 # LLM Context: ${site}/llms.txt

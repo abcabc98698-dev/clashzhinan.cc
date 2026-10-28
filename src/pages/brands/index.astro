@@ -1,0 +1,61 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SITE_CONFIG } from "@/config";
+import { AIRPORT_BRANDS } from "@/data/brands";
+import BrandDirectory from "@/components/brands/BrandDirectory";
+import TextReveal from "@/components/ui/TextReveal";
+
+const title = `2026 高速稳定机场推荐与品牌知识库 // ${SITE_CONFIG.title}`;
+const description = "基于真实网络可观测性实验室实测数据，全面收录主流 IEPL/IPLC 专线机场，涵盖晚高峰测速、流媒体与 AI 工具解锁可用性分析，提供透明客观的选购参考。";
+
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+
+// Schema.org ItemList for Google Rich Snippets
+const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "2026 优质机场品牌推荐与测评榜单",
+    "description": description,
+    "itemListElement": AIRPORT_BRANDS.map((brand, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": brand.name,
+        "url": `${siteBase}/brands/${brand.slug}`,
+        "description": brand.summary
+    }))
+};
+---
+
+<Layout
+    title={title}
+    description={description}
+>
+    <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(itemListSchema)}
+    />
+
+    <div class="max-w-6xl mx-auto w-full pt-2 sm:pt-4 md:pt-6 pb-20">
+        <!-- Top Editorial Header -->
+        <header class="mb-10 sm:mb-12 text-left">
+            <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-secondary-text">
+                    Network Observatory // Brand Directory
+                </span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-primary-text dark:text-white mb-3 sm:mb-4">
+                机场品牌推荐库.
+            </h1>
+
+            <p class="text-sm sm:text-base text-secondary-text dark:text-gray-300 max-w-2xl font-light leading-relaxed">
+                收录经过网络实验室非高峰与晚高峰双重实测的优质加速品牌。覆盖企业级 IEPL 专线、全球 IPLC、按量不限时不过期以及自研专属客户端，助您精准匹配跨境外贸、流媒体与 AI 办公需求。
+            </p>
+        </header>
+
+        <!-- Brand Interactive Directory Island -->
+        <BrandDirectory client:load brands={AIRPORT_BRANDS} />
+    </div>
+</Layout>

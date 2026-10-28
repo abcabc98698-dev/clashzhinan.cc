@@ -1,0 +1,65 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SITE_CONFIG } from "@/config";
+import { CLIENT_DATA } from "@/data/clients";
+import ClientDirectory from "@/components/clients/ClientDirectory";
+
+const title = `2026 全平台网络代理客户端下载与配置指南 // ${SITE_CONFIG.title}`;
+const description = "收录 Windows、macOS、Android、iOS、Linux 与 OpenWrt 软路由主流科学上网客户端（Clash Verge Rev、v2rayN、FlClash、Shadowrocket、Stash、sing-box 等），提供官方安全下载渠道与分流优化配置教程。";
+
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+
+// Schema.org SoftwareApplication List
+const softwareListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "2026 跨平台网络代理与分流客户端大全",
+    "description": description,
+    "itemListElement": CLIENT_DATA.map((client, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+            "@type": "SoftwareApplication",
+            "name": client.name,
+            "operatingSystem": client.os.join(", "),
+            "applicationCategory": "UtilitiesApplication",
+            "downloadUrl": client.downloadUrl,
+            "description": client.description
+        }
+    }))
+};
+---
+
+<Layout
+    title={title}
+    description={description}
+>
+    <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(softwareListSchema)}
+    />
+
+    <div class="max-w-6xl mx-auto w-full pt-2 sm:pt-4 md:pt-6 pb-20">
+        <!-- Top Editorial Header -->
+        <header class="mb-10 sm:mb-12 text-left">
+            <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-secondary-text">
+                    Network Observatory // Client Software Matrix
+                </span>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-primary-text dark:text-white mb-3 sm:mb-4">
+                客户端大全.
+            </h1>
+
+            <p class="text-sm sm:text-base text-secondary-text dark:text-gray-300 max-w-2xl font-light leading-relaxed">
+                按操作系统精选主流、开源且持续维护的科学上网客户端。无论您使用 Windows 电脑、Mac 苹果笔记本、iPhone、安卓手机还是家庭软路由，均可在此获取官方安全发布版本与调优使用秘籍。
+            </p>
+        </header>
+
+        <!-- Clients Matrix Island -->
+        <ClientDirectory client:load clients={CLIENT_DATA} />
+    </div>
+</Layout>

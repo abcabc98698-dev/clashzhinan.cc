@@ -227,6 +227,7 @@ export default defineConfig({
         })
     },
     integrations: [mdx(), sitemap({
+        filter: (page) => !page.includes('/go/'),
         chunks: {
             'blog': (item) => {
                 const urlPath = new URL(item.url).pathname;

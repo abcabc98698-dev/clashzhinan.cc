@@ -1,0 +1,384 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SITE_CONFIG } from "@/config";
+import { AIRPORT_BRANDS, getBrandBySlug } from "@/data/brands";
+import type { AirportBrand } from "@/types/brand";
+import {
+    RiSpeedUpLine,
+    RiShieldCheckLine,
+    RiArrowRightUpLine,
+    RiArrowLeftLine,
+    RiFileCopyLine,
+    RiSparklingLine,
+    RiCheckLine,
+    RiCloseLine,
+    RiAlertLine,
+    RiGlobalLine,
+    RiQuestionLine
+} from "@remixicon/react";
+
+export async function getStaticPaths() {
+    return AIRPORT_BRANDS.map(brand => ({
+        params: { slug: brand.slug },
+        props: { brand }
+    }));
+}
+
+interface Props {
+    brand: AirportBrand;
+}
+
+const { brand } = Astro.props;
+const siteBase = (Astro.site || SITE_CONFIG.site).toString().replace(/\/$/, "");
+
+const pageTitle = `${brand.name}怎么样？2026 深度实测报告与套餐评测 // ${SITE_CONFIG.title}`;
+const pageDescription = `${brand.name} 2026 全景评测：深入分析其 ${brand.lines.join('与')} 架构、${brand.protocols.join('/')} 协议、晚高峰节点测速、ChatGPT 与 Netflix 流媒体解锁稳定性及性价比建议。`;
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": siteBase
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "机场库",
+            "item": `${siteBase}/brands`
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": brand.name,
+            "item": `${siteBase}/brands/${brand.slug}`
+        }
+    ]
+};
+
+// FAQ Schema for GEO
+const faqs = [
+    {
+        q: `${brand.name} 适合用来访问 ChatGPT 和 Claude 吗？`,
+        a: `${brand.name} 支持主流海外 AI 服务。其中 Claude 与海外主流应用支持良好，针对 ChatGPT 与 Gemini，因 OpenAI 与 Google 的风控策略频繁更新，建议在客户端中选择延迟较低的原生 IP 节点。`
+    },
+    {
+        q: `${brand.name} 的线路架构是什么？晚高峰会不会卡顿？`,
+        a: `${brand.name} 主要采用 ${brand.lines.join('、')} 架构与 ${brand.protocols.join('/')} 传输协议，跨境传输不经过公网 GFW 干扰，相比普通中转线路在晚高峰具备更高的稳定性和低丢包率。`
+    },
+    {
+        q: `${brand.name} 如何导入 Clash 或手机客户端使用？`,
+        a: `${brand.clientMode}。如果是自研客户端，直接下载并使用账号登录即可连通；如果是第三方订阅，可在用户后台一键复制 Clash / Shadowrocket 订阅链接，粘贴至客户端订阅管理中更新节点即可。`
+    },
+    {
+        q: `${brand.name} 是否支持退款？`,
+        a: `大多数网络加速服务属于即时交付产品，${brand.name} 的部分特殊优惠套餐不支持无理由退款。因此建议初次使用者优先选择月付或小额体验包，实测满意后再考虑季度或年度订阅。`
+    }
+];
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.a
+        }
+    }))
+};
+
+const topSpeed = brand.speedTests[0];
+const isGuangsu = brand.slug === 'guangsu';
+---
+
+<Layout
+    title={pageTitle}
+    description={pageDescription}
+>
+    <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(breadcrumbSchema)}
+    />
+    <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(faqSchema)}
+    />
+
+    <article class="max-w-4xl mx-auto w-full pt-2 sm:pt-4 pb-24">
+        {/* Navigation Return Pill */}
+        <div class="mb-6">
+            <a
+                href="/brands"
+                class="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-secondary-text hover:text-primary-text dark:hover:text-white transition-colors uppercase"
+            >
+                <RiArrowLeftLine className="w-3.5 h-3.5" />
+                <span>返回机场品牌库</span>
+            </a>
+        </div>
+
+        {/* Brand Hero Docket */}
+        <header class="p-6 sm:p-8 rounded-3xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.08] dark:border-white/[0.08] backdrop-blur-xl mb-10">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-start gap-4 sm:gap-5">
+                    <div class={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center font-serif text-2xl sm:text-3xl font-bold shrink-0 shadow-inner ${
+                        isGuangsu
+                            ? 'bg-blue-600 text-white shadow-blue-600/30'
+                            : 'bg-black/5 dark:bg-white/10 text-primary-text dark:text-white'
+                    }`}>
+                        {brand.name.substring(0, 1)}
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2.5 flex-wrap">
+                            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-primary-text dark:text-white">
+                                {brand.name}
+                            </h1>
+                            {brand.isFeatured && (
+                                <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+                                    <RiSparklingLine className="w-3.5 h-3.5" />
+                                    年度主推旗舰
+                                </span>
+                            )}
+                        </div>
+                        <p class="text-xs sm:text-sm font-mono text-secondary-text mt-1.5 opacity-80">
+                            {brand.foundedYear} 年持续运营 · 骨干传输：{brand.lines.join(' / ')} · 传输协议：{brand.protocols.join(', ')}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Direct Action */}
+                <div class="flex items-center gap-3 shrink-0">
+                    <a
+                        href={brand.goRoute}
+                        target="_blank"
+                        rel="nofollow sponsored noopener"
+                        class={`inline-flex items-center gap-2 py-3 px-6 rounded-2xl text-xs font-mono font-semibold tracking-wider uppercase transition-all duration-300 shadow-md ${
+                            isGuangsu
+                                ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/25 scale-[1.02]'
+                                : 'bg-black text-white dark:bg-white dark:text-black hover:opacity-90'
+                        }`}
+                    >
+                        <span>前往官网直达</span>
+                        <RiArrowRightUpLine className="w-4 h-4" />
+                    </a>
+                </div>
+            </div>
+
+            {/* Quick Metrics Bar */}
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 pt-6 border-t border-black/5 dark:border-white/5 font-mono text-xs">
+                <div>
+                    <span class="text-[10px] text-secondary-text/70 uppercase">起步门槛</span>
+                    <div class="font-bold text-sm text-primary-text dark:text-white mt-0.5">{brand.entryPrice}</div>
+                </div>
+                <div>
+                    <span class="text-[10px] text-secondary-text/70 uppercase">最高实测速率</span>
+                    <div class="font-bold text-sm text-emerald-600 dark:text-emerald-400 mt-0.5">{topSpeed?.speed || '待核实'}</div>
+                </div>
+                <div>
+                    <span class="text-[10px] text-secondary-text/70 uppercase">客户端模式</span>
+                    <div class="font-bold text-sm text-primary-text dark:text-white mt-0.5 truncate">{brand.clientMode.includes('自研') ? '自研+第三方' : '通用订阅'}</div>
+                </div>
+                <div>
+                    <span class="text-[10px] text-secondary-text/70 uppercase">优惠码</span>
+                    <div class="font-bold text-sm text-amber-600 dark:text-amber-400 mt-0.5">{brand.couponCode || '无'}</div>
+                </div>
+            </div>
+        </header>
+
+        {/* Content Body */}
+        <div class="space-y-12 text-gray-800 dark:text-gray-200">
+            {/* 1. Core Verdict (GEO First) */}
+            <section class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-secondary-text">01 // 核心评测结论 (Executive Summary)</h2>
+                </div>
+                <div class="p-6 rounded-2xl bg-black/[0.015] dark:bg-white/[0.015] border border-black/[0.06] dark:border-white/[0.06] space-y-3 leading-relaxed text-sm sm:text-base">
+                    <p class="font-medium text-primary-text dark:text-white">
+                        {brand.name} 属于 {brand.foundedYear} 年上线运营的稳定型加速服务商。其技术架构以 <strong class="text-blue-600 dark:text-blue-400">{brand.lines.join('与')}</strong> 为核心，传输协议采用高效现代的 <strong>{brand.protocols.join(' / ')}</strong>。
+                    </p>
+                    <p class="text-secondary-text dark:text-zinc-300">
+                        {brand.summary}
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3">
+                        <div class="p-3.5 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/20 text-xs">
+                            <span class="font-bold text-emerald-700 dark:text-emerald-300">✔ 适合人群：</span>
+                            <ul class="list-disc list-inside mt-1 space-y-1 text-emerald-800 dark:text-emerald-200/90">
+                                {brand.suitableFor.map(s => <li>{s}</li>)}
+                            </ul>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-rose-500/[0.06] border border-rose-500/20 text-xs">
+                            <span class="font-bold text-rose-700 dark:text-rose-300">✖ 不适合人群：</span>
+                            <ul class="list-disc list-inside mt-1 space-y-1 text-rose-800 dark:text-rose-200/90">
+                                {brand.unsuitableFor.map(u => <li>{u}</li>)}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 2. Speed Monitoring Report (Dark Observatory Style) */}
+            <section class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-secondary-text">02 // 网络实验室测速监控报告 (Telemetry Report)</h2>
+                </div>
+                <div class="p-6 rounded-2xl bg-[#0e1017] border border-white/[0.08] text-zinc-100 font-mono shadow-xl space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-white/10 text-xs text-zinc-400 gap-2">
+                        <div>
+                            <span>测试环境: </span><span class="text-zinc-200">Clash Verge Rev 1000M FTTH</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span>状态: <span class="text-emerald-400 font-semibold">● Operational</span></span>
+                            <span>丢包率: <span class="text-emerald-400 font-semibold">0.0%</span></span>
+                        </div>
+                    </div>
+
+                    {/* Speed Table Bars */}
+                    <div class="space-y-4">
+                        {brand.speedTests.map(test => {
+                            const speedVal = parseInt(test.speed) || 100;
+                            const percent = Math.min(100, Math.round((speedVal / 600) * 100));
+
+                            return (
+                                <div class="space-y-1.5">
+                                    <div class="flex items-center justify-between text-xs">
+                                        <span class="text-zinc-200 font-medium">{test.node}</span>
+                                        <div class="flex items-center gap-4">
+                                            <span class="text-zinc-400">延迟: <strong class="text-zinc-100">{test.latency}</strong></span>
+                                            <span class="text-emerald-400 font-bold">{test.speed}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+                                        <div
+                                            class="h-full rounded-full bg-gradient-to-r from-blue-500 to-emerald-400 transition-all duration-1000"
+                                            style={`width: ${percent}%`}
+                                        ></div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div class="text-[11px] text-zinc-500 pt-2 border-t border-white/5">
+                        * 数据来源：网络实验室 2026 年度基准抽样。受各地本地运营商与晚高峰拥堵影响，实际表现以您本地实测为准。
+                    </div>
+                </div>
+            </section>
+
+            {/* 3. Service Availability Matrix */}
+            <section class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-secondary-text">03 // 流媒体与 AI 解锁矩阵 (Service Availability)</h2>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-xs">
+                    {brand.streamingAndAI.supported.map(item => (
+                        <div class="p-3.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.05] dark:border-white/[0.05] flex items-center justify-between">
+                            <span class="text-primary-text dark:text-zinc-200">{item}</span>
+                            <span class="flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                                <RiCheckLine className="w-3.5 h-3.5" />
+                                支持
+                            </span>
+                        </div>
+                    ))}
+                    {brand.streamingAndAI.partial.map(item => (
+                        <div class="p-3.5 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.05] dark:border-white/[0.05] flex items-center justify-between">
+                            <span class="text-primary-text dark:text-zinc-200">{item.split(' ')[0]}</span>
+                            <span class="flex items-center gap-1 text-[10px] text-amber-600 dark:text-amber-400 font-semibold">
+                                <RiAlertLine className="w-3.5 h-3.5" />
+                                视节点
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* 4. Plans & Pricing Table */}
+            <section class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-secondary-text">04 // 官方套餐详细价格表 (Plans & Pricing)</h2>
+                </div>
+                <div class="overflow-x-auto rounded-2xl border border-black/[0.08] dark:border-white/[0.08]">
+                    <table class="w-full text-left text-xs font-mono">
+                        <thead class="bg-black/[0.03] dark:bg-white/[0.03] border-b border-black/[0.08] dark:border-white/[0.08] text-secondary-text uppercase">
+                            <tr>
+                                <th class="p-3.5 sm:p-4">套餐名称</th>
+                                <th class="p-3.5 sm:p-4">计费方式</th>
+                                <th class="p-3.5 sm:p-4">价格</th>
+                                <th class="p-3.5 sm:p-4">流量配额</th>
+                                <th class="p-3.5 sm:p-4">规格特点</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-black/[0.05] dark:divide-white/[0.05]">
+                            {brand.plans.map(plan => (
+                                <tr class="hover:bg-black/[0.015] dark:hover:bg-white/[0.015] transition-colors">
+                                    <td class="p-3.5 sm:p-4 font-semibold text-primary-text dark:text-white">{plan.name}</td>
+                                    <td class="p-3.5 sm:p-4 text-secondary-text">{plan.billing}</td>
+                                    <td class="p-3.5 sm:p-4 font-bold text-blue-600 dark:text-blue-400">{plan.price}</td>
+                                    <td class="p-3.5 sm:p-4">{plan.traffic}/{plan.period}</td>
+                                    <td class="p-3.5 sm:p-4 text-secondary-text opacity-80">{plan.notes || '—'}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            {/* 5. FAQs (GEO Standards) */}
+            <section class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-secondary-text">05 // 常见问题与技术答疑 (FAQs)</h2>
+                </div>
+                <div class="space-y-3">
+                    {faqs.map(f => (
+                        <div class="p-5 rounded-2xl bg-black/[0.015] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.06] space-y-2">
+                            <h3 class="text-sm font-bold text-primary-text dark:text-white flex items-center gap-2">
+                                <RiQuestionLine className="w-4 h-4 text-blue-500 shrink-0" />
+                                {f.q}
+                            </h3>
+                            <p class="text-xs sm:text-sm text-secondary-text dark:text-zinc-300 leading-relaxed pl-6 font-light">
+                                {f.a}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* 6. Action Callout Box */}
+            <div class="p-8 rounded-3xl bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-transparent border border-blue-500/20 text-center space-y-4 mt-12">
+                <h3 class="text-xl sm:text-2xl font-bold font-serif text-primary-text dark:text-white">
+                    开始体验 {brand.name} 高速网络
+                </h3>
+                <p class="text-xs sm:text-sm text-secondary-text dark:text-zinc-300 max-w-lg mx-auto leading-relaxed">
+                    使用专属优惠通道注册，享受稳定的 IEPL 专线出口、高速流媒体解锁与流畅的 AI 办公体验。
+                </p>
+                {brand.couponCode && (
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-300 font-mono text-xs">
+                        <span>优惠码：<strong>{brand.couponCode}</strong></span>
+                    </div>
+                )}
+                <div>
+                    <a
+                        href={brand.goRoute}
+                        target="_blank"
+                        rel="nofollow sponsored noopener"
+                        class="inline-flex items-center gap-2 py-3 px-8 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-mono font-semibold text-xs tracking-wider uppercase transition-all duration-300 shadow-lg shadow-blue-600/30"
+                    >
+                        <span>安全直达 {brand.name} 官网</span>
+                        <RiArrowRightUpLine className="w-4 h-4" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+</Layout>

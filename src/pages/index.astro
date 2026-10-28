@@ -10,6 +10,7 @@ import {
 import DecryptedText from "@/components/ui/DecryptedText";
 import CursorGlow from "@/components/ui/CursorGlow";
 import HarmonicSystemSVG from "@/components/ui/HarmonicSystemSVG.astro";
+import { RiSparklingLine, RiArrowRightUpLine, RiSpeedUpLine, RiShieldCheckLine } from "@remixicon/react";
 ---
 
 <Layout
@@ -77,6 +78,71 @@ import HarmonicSystemSVG from "@/components/ui/HarmonicSystemSVG.astro";
                         aboutFrontmatter.description
                     }
                 </p>
+            </div>
+
+                        <!-- Featured Primary Recommendation: 光速云 (Hero Observatory Card) -->
+            <div class="mt-10 mb-8 p-6 sm:p-7 rounded-2xl bg-gradient-to-b from-blue-500/[0.04] to-purple-500/[0.02] dark:from-blue-500/[0.08] dark:to-purple-500/[0.04] border border-blue-500/20 dark:border-blue-400/30 backdrop-blur-xl shadow-lg shadow-blue-500/5 relative overflow-hidden group">
+                <div class="flex items-center justify-between gap-3 mb-3.5">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center gap-1 text-[10px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-blue-600 text-white shadow-sm">
+                            <RiSparklingLine className="w-3 h-3" />
+                            年度综合主推 · 旗舰专线
+                        </span>
+                        <span class="text-[11px] font-mono text-secondary-text hidden sm:inline">2020年稳定运营</span>
+                    </div>
+                    <div class="text-right font-mono text-xs">
+                        <span class="text-secondary-text opacity-70">入门门槛: </span>
+                        <strong class="text-primary-text dark:text-white">¥99/年 (约¥8/月)</strong>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 my-2">
+                    <h2 class="text-xl sm:text-2xl font-bold font-serif text-primary-text dark:text-white">
+                        光速云 (GuangSu Cloud)
+                    </h2>
+                    <span class="text-xs font-mono text-blue-600 dark:text-blue-400 font-medium">
+                        IEPL专线 + 内网专网 · 最高 2.5Gbps · 专属端+Clash
+                    </span>
+                </div>
+
+                <p class="text-xs sm:text-sm text-secondary-text dark:text-zinc-300 leading-relaxed my-3 font-light">
+                    兼具极致晚高峰抗波动能力与超高性价比。特色推出<strong>致敬斯诺克 147 永久套餐</strong>（¥147 一次性 247GB 永不过期），全平台专属免配客户端与 Clash 规则订阅无缝导入，优惠码 <code class="font-bold text-amber-600 dark:text-amber-400">AMM</code>。
+                </p>
+
+                {/* Telemetry Snapshot */}
+                <div class="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.04] dark:border-white/[0.05] text-center font-mono text-xs my-4">
+                    <div>
+                        <div class="text-[9px] uppercase text-secondary-text/70">实测香港延迟</div>
+                        <div class="font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">22ms (0%丢包)</div>
+                    </div>
+                    <div class="border-x border-black/5 dark:border-white/5">
+                        <div class="text-[9px] uppercase text-secondary-text/70">单节点峰值</div>
+                        <div class="font-bold text-primary-text dark:text-zinc-100 mt-0.5">529 Mbps</div>
+                    </div>
+                    <div>
+                        <div class="text-[9px] uppercase text-secondary-text/70">协议架构</div>
+                        <div class="font-bold text-primary-text dark:text-zinc-100 mt-0.5">VLESS 专线</div>
+                    </div>
+                </div>
+
+                {/* CTA Action Dual Buttons */}
+                <div class="flex items-center gap-3 pt-2">
+                    <a
+                        href="/brands/guangsu"
+                        class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl text-xs font-mono font-medium border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 text-primary-text dark:text-white transition-all text-center"
+                    >
+                        <span>2026 全景评测</span>
+                    </a>
+                    <a
+                        href="/go/guangsu"
+                        target="_blank"
+                        rel="nofollow sponsored noopener"
+                        class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl text-xs font-mono font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all text-center shadow-md shadow-blue-600/25"
+                    >
+                        <span>直达光速云官网</span>
+                        <RiArrowRightUpLine className="w-3.5 h-3.5" />
+                    </a>
+                </div>
             </div>
 
             <!-- About Section (LCP Element rendered smoothly) -->

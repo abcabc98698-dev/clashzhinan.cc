@@ -3,7 +3,7 @@ const siteUrl = (typeof process !== 'undefined' && process.env?.SITE) || "https:
 export const SITE_CONFIG = {
     title: "Clash指南",
     logoSrc: "/favicon.svg",
-    description: "数字漫游、网络拓扑与技术探索指南。以极简美学呈现的现代技术博文与数字画廊。",
+    description: "Clash指南网 (clashzhinan.cc) - 专注于高速网络专线机场评测、全平台代理客户端指南与拓扑可观测性技术平台。",
     author: "ClashZhinan",
     authorPhonetic: "/klæʃ ʒiːnæn/",
     signature: "ClashZhinan",
@@ -13,15 +13,10 @@ export const SITE_CONFIG = {
     projectsPerPage: 12,
     defaultImage: "/blog-placeholder-1.png",
     nav: [
-        { text: "Blog", href: "/blog" },
-        {
-            text: "Gallery",
-            href: "/gallery",
-            children: [
-                { text: "2025", href: "/gallery/2025/shinjukugyoencherryblossoms" }
-            ]
-        },
-        { text: "Traces", href: "/traces" },
+        { text: "机场库", href: "/brands" },
+        { text: "客户端", href: "/clients" },
+        { text: "网络图志", href: "/traces" },
+        { text: "技术指南", href: "/blog" },
     ],
     homepage: {
         harmonicSystem: {
@@ -29,16 +24,19 @@ export const SITE_CONFIG = {
             speed: 0.0042
         },
         links: [
-            { text: "阅读博客", href: "/blog" },
-            { text: "探索足迹", href: "/traces" }
+            { text: "查阅机场品牌库", href: "/brands" },
+            { text: "全平台客户端下载", href: "/clients" },
+            { text: "观测全球节点图志", href: "/traces" }
         ]
     },
     footer: {
         social: [
-            { text: "项目库", href: "/projects" },
-            { text: "网络坐标", href: "/elsewhere" }
+            { text: "机场品牌库", href: "/brands" },
+            { text: "客户端大全", href: "/clients" },
+            { text: "网络图志", href: "/traces" },
+            { text: "关于与声明", href: "/about" }
         ],
-        copyright: "Clash指南. 保留所有权利。"
+        copyright: "Clash指南网. 保留所有权利。"
     },
     elsewhere: [
         {
@@ -67,7 +65,7 @@ export const SITE_CONFIG = {
         declaration: "本文采用 CC BY-NC-SA 4.0 国际许可协议。商业转载请获得书面授权，非商业转载请注明出处及原文链接。",
         proof: {
             enabled: true,
-            linkText: "版权说明",
+            linkText: "版权与评测说明",
             baseUrl: `${siteUrl}/about`,
             mode: "static"
         }
